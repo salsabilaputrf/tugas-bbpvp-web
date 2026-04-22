@@ -1,0 +1,1 @@
+export const menus = ['Beranda', 'Tentang', 'Blog', 'Pelatihan', 'Daftar Pelatihan'];

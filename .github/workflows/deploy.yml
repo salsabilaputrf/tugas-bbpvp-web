@@ -31,3 +31,4 @@ jobs:
           source: "dist/*" # Ganti "build/*" jika pakai Create React App
           target: "/var/www/tugas-bbpvp-web"
           strip_components: 1
+          debug: true

@@ -15,10 +15,14 @@ const JoinTraining = () => {
             });
             const data = await response.json();
             if(data.success){
-                toast.success("Pendaftaran berhasil! Data Anda telah kami terima.");
+                toast.success("Pendaftaran berhasil! Data Anda telah kami terima.", {
+                    duration: 6000,
+                });
                 event.target.reset();
             }else{
-                toast.error(data.message);
+                toast.error(data.message, {
+                    duration: 4000,
+                });
             }         
         } catch (error) {
             toast.error(error.message);

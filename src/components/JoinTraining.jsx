@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { dataPelatihan } from '../data/trainingData';
-import toast from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 
 const JoinTraining = () => {
     const [result, setResult] = useState("");
@@ -34,6 +34,7 @@ const JoinTraining = () => {
                         <h2 className="text-2xl font-bold">Formulir Pendaftaran Pelatihan</h2>
                         <p className="text-blue-100 text-sm mt-2">Silakan isi data diri Anda dengan lengkap dan benar.</p>
                     </div>
+                    <Toaster position="top-center" reverseOrder={false} />
                     {/* Form */}
                     <form className="p-8 space-y-8" onSubmit={onSubmit}>                   
                         {/* Identitas Diri */}

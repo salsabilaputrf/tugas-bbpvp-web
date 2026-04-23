@@ -1,0 +1,33 @@
+name: Deploy BBPVP Web
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 24
+
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Kirim File ke VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "dist/*" # Ganti "build/*" jika pakai Create React App
+          target: "/var/www/tugas-bbpvp-web"
+          strip_components: 1

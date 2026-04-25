@@ -47,11 +47,11 @@ const Footer = () => {
                         Informasi
                         </h3>
                         <ul className="space-y-4 text-gray-300 text-sm">
-                            <li><a href="#" className="hover:text-white hover:underline transition-all">Beranda</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline transition-all">Tentang</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline transition-all">Blog</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline transition-all">Pelatihan</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline transition-all">Daftar Pelatihan</a></li>
+                            <li><a href="#beranda" className="hover:text-white hover:underline transition-all">Beranda</a></li>
+                            <li><a href="#tentang" className="hover:text-white hover:underline transition-all">Tentang</a></li>
+                            <li><a href="#blog" className="hover:text-white hover:underline transition-all">Blog</a></li>
+                            <li><a href="#training" className="hover:text-white hover:underline transition-all">Pelatihan</a></li>
+                            <li><a href="#join-training" className="hover:text-white hover:underline transition-all">Daftar Pelatihan</a></li>
                         </ul>
                     </div>
                 </div>

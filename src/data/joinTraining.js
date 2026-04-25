@@ -1,0 +1,1 @@
+export const listPendidikan = ["SD", "SMP", "SMA/K", "Diploma", "S1"];

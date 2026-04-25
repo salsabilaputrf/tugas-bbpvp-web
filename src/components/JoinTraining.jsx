@@ -1,9 +1,15 @@
 import React, {useState} from 'react'
 import { dataPelatihan } from '../data/trainingData';
 import toast, {Toaster} from 'react-hot-toast';
+import { listPendidikan } from '../data/joinTraining';
 
 const JoinTraining = () => {
     const [result, setResult] = useState("");
+    const [isOpenPendidikan, setIsOpenPendidikan] = useState(false);
+    const [selectedPendidikan, setSelectedPendidikan] = useState("Pilih Pendidikan...");
+    const [isOpenPelatihan, setIsOpenPelatihan] = useState(false);
+    const [selectedPelatihan, setSelectedPelatihan] = useState("Cari program pelatihan...");
+    
     const onSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -94,16 +100,54 @@ const JoinTraining = () => {
                                     <input type="email" name='Email' required placeholder="nama@email.com" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:outline-none font-semibold text-slate-600" />
                                 </div>
                                 {/* pendidikan */}
-                                <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Pendidikan Terakhir</label>
-                                    <select name='Pendidikan' required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:outline-none font-semibold text-slate-600">
-                                        <option value="">Pilih Pendidikan...</option>
-                                        <option value="SD">SD</option>
-                                        <option value="SMP">SMP</option>
-                                        <option value="SMA/K">SMA/K</option>
-                                        <option value="Diploma">Diploma</option>
-                                        <option value="S1">S1</option>
-                                    </select>
+                                <div className="space-y-2 relative">
+                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">
+                                        Pendidikan Terakhir
+                                    </label>
+                                
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsOpenPendidikan(!isOpenPendidikan)}
+                                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all relative z-30"
+                                    >
+                                        <span className={`font-semibold ${selectedPendidikan === "Pilih Pendidikan..." ? 'text-slate-400' : 'text-slate-600'}`}>
+                                            {selectedPendidikan}
+                                        </span>
+                                        <svg 
+                                            className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpenPendidikan ? 'rotate-180' : ''}`} 
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    {isOpenPendidikan && (
+                                        <div 
+                                            className="fixed inset-0 z-20 bg-transparent cursor-default" 
+                                            onClick={() => setIsOpenPendidikan(false)}
+                                        />
+                                    )}
+
+                                    {/* Menu Dropdown */}
+                                    {isOpenPendidikan && (
+                                        <div className="absolute z-40 mt-2 w-full bg-white border border-slate-100 rounded-2xl shadow-2xl max-h-64 overflow-y-auto overflow-x-hidden">
+                                            {listPendidikan.map((edu) => (
+                                                <button 
+                                                    key={edu} 
+                                                    type="button"
+                                                    onClick={() => { 
+                                                        setSelectedPendidikan(edu); 
+                                                        setIsOpenPendidikan(false); 
+                                                    }} 
+                                                    className="w-full text-left px-6 py-4 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-slate-50 last:border-none"
+                                                >
+                                                    {edu}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <input type="hidden" name="Pendidikan" value={selectedPendidikan === "Pilih Pendidikan..." ? "" : selectedPendidikan} required />
                                 </div>
                                 {/* tahun lulus */}
                                 <div className="space-y-2">
@@ -120,16 +164,64 @@ const JoinTraining = () => {
                                 Program Pelatihan
                             </h3>
                             <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Pilih Judul Pelatihan</label>
-                                    <select name="Program pelatihan" required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:outline-none font-semibold text-slate-600 cursor-pointer">
-                                        <option value="">Cari program pelatihan...</option>
-                                        {dataPelatihan.map((item) => (
-                                            <option key={item.id} value={item.judul}>
-                                            [{item.kejuruan}] {item.judul}
-                                            </option>
-                                        ))}
-                                    </select>
+                                <div className="space-y-2 relative">
+                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">
+                                        Pilih Judul Pelatihan
+                                    </label>
+                                    
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsOpenPelatihan(!isOpenPelatihan)}
+                                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all relative z-30"
+                                    >
+                                        <span className={`font-semibold ${selectedPelatihan === "Cari program pelatihan..." ? 'text-slate-400' : 'text-slate-600'}`}>
+                                            {selectedPelatihan}
+                                        </span>
+                                        <svg 
+                                            className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpenPelatihan ? 'rotate-180' : ''}`} 
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    {isOpenPelatihan && (
+                                        <div 
+                                            className="fixed inset-0 z-20 bg-transparent cursor-default" 
+                                            onClick={() => setIsOpenPelatihan(false)}
+                                        />
+                                    )}
+
+                                    {isOpenPelatihan && (
+                                        <div className="absolute z-40 mt-2 w-full bg-white border border-slate-100 rounded-2xl shadow-2xl max-h-64 overflow-y-auto overflow-x-hidden">
+                                            {dataPelatihan.filter(item => item.status === "Pendaftaran Dibuka").length > 0 ? (
+                                                dataPelatihan
+                                                    .filter(item => item.status === "Pendaftaran Dibuka") 
+                                                    .map((item) => (
+                                                        <button
+                                                            key={item.id}
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setSelectedPelatihan(`[${item.kejuruan}] ${item.judul}`);
+                                                                setIsOpenPelatihan(false);
+                                                            }}
+                                                            className="w-full text-left px-6 py-4 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-slate-50 last:border-none"
+                                                        >
+                                                            <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-md mr-2 uppercase tracking-tighter font-bold">
+                                                                {item.kejuruan}
+                                                            </span>
+                                                            {item.judul}
+                                                        </button>
+                                                    ))
+                                            ) : (
+                                                <div className="px-6 py-4 text-sm text-slate-400 italic text-center">
+                                                    Belum ada pelatihan yang dibuka
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    <input type="hidden" name="Program pelatihan" value={selectedPelatihan === "Cari program pelatihan..." ? "" : selectedPelatihan} required />
                                 </div>
                             </div>
                         </section>

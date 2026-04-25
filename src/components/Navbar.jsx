@@ -17,7 +17,7 @@ const Navbar = () => {
                         href="#beranda" 
                         onClick={() => {
                             setActive('Beranda'); 
-                            window.location.href = '/'; 
+                            window.location.href = '/tugas-salsabila'; 
                         }}
                         className="transition-transform hover:scale-105 active:scale-95 duration-200"
                     >
